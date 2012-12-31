@@ -1,0 +1,19 @@
+{
+  "name": "whenandwheregolf.com",
+  "description": "Find the best golf course to play based on price given a certain time and place",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.0.5",
+    "connect": "~2.7.1",
+    "coffee-script": "~1.4.0",
+    "eco": "~1.1.0-rc-3",
+    "mongoose": "~3.5.3",
+    "connect-assets": "~2.3.3",
+    "connect-flash": "~0.1.0",
+    "connect-mongodb": "~1.1.5"
+  },
+  "devDependencies": {
+    "nodemon": "~0.6.23"
+  }
+}
