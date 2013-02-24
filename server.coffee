@@ -26,14 +26,14 @@ app.get '/', (req, res) ->
 app.get '/courses', (req, res) ->
   CourseModel.find (err, courses) ->
     if !err
-      res.send courses
+      res.send courses + "\n\n"
     else
       console.log err
       
 app.get '/course/:id', (req, res) ->
   CourseModel.findById req.params.id, (err, course) ->
     if !err
-      res.send course
+      res.send course + "\n\n"
     else
       console.log err
       
@@ -48,33 +48,30 @@ app.post '/course', (req, res) ->
       console.log "created"
     else
       console.log err
-  res.send course
+  res.send course + "\n\n"
   
 app.put '/course/:id', (req, res) ->
-  console.log "UPDATING: "
-  console.log req.body
   CourseModel.findById req.params.id, (err, course) ->
-    course.name = "Newly updated name"
-    course.city = "New City"
-    course.modified = Date.now
+    course.name = req.body.name
+    course.city = req.body.city
     course.save (err) ->
       if !err
         console.log "updated"
+        res.send "Course with id: #{req.params.id} was updated\n\n"
       else
+        console.log "error"
         console.log err
-        res.send course
+      res.send course + "\n\n"
     
 app.del '/course/:id', (req, res) ->
-  console.log "DELETING: "
-  console.log req.body
   CourseModel.findById req.params.id, (err, course) ->
     course.remove (err) ->
       if !err
         console.log "removed"
-        res.send 
+        res.send "Course with id: #{req.params.id} was deleted\n\n"
       else
         console.log err
-        res.send course
+
 
 
 app.listen 3001
