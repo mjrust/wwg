@@ -14,6 +14,7 @@ app.configure () ->
   app.engine 'eco', cons.eco
   app.set 'view engine', 'eco'
   app.use partials()
+  app.use express.static(__dirname + '/public')
   app.set 'views', __dirname + '/views'
   app.use express.bodyParser()
   
@@ -27,7 +28,7 @@ Course = new Schema
 CourseModel = mongoose.model('Course', Course)
 
 app.get '/', (req, res) ->
-  res.render 'index', title: 'When and Where Golf', name: 'Matt Rust'
+  res.render 'index', title: 'When and Where Golf', name: 'Matt Rust', layout: 'application'
   
 app.get '/courses', (req, res) ->
   CourseModel.find (err, courses) ->
