@@ -1,7 +1,9 @@
 require('coffee-script')
 
-express = require('express')
-mongoose = require('mongoose')
+express  = require "express"
+mongoose = require "mongoose"
+cons     = require "consolidate"
+partials = require "express-partials"
 
 # Database
 db = mongoose.connect('mongodb://localhost/wwg')
@@ -9,8 +11,12 @@ app = express()
 
 app.configure () ->
   app.use express.logger('dev')  # 'default', 'short', 'tiny', 'dev'
+  app.engine 'eco', cons.eco
+  app.set 'view engine', 'eco'
+  app.use partials()
+  app.set 'views', __dirname + '/views'
   app.use express.bodyParser()
-
+  
 Schema = mongoose.Schema
 
 Course = new Schema
@@ -21,19 +27,19 @@ Course = new Schema
 CourseModel = mongoose.model('Course', Course)
 
 app.get '/', (req, res) ->
-  res.send "When and Where Golf"
+  res.render 'index', title: 'When and Where Golf', name: 'Matt Rust'
   
 app.get '/courses', (req, res) ->
   CourseModel.find (err, courses) ->
     if !err
-      res.send courses + "\n\n"
+      res.send courses
     else
       console.log err
       
 app.get '/course/:id', (req, res) ->
   CourseModel.findById req.params.id, (err, course) ->
     if !err
-      res.send course + "\n\n"
+      res.send course
     else
       console.log err
       
@@ -48,7 +54,7 @@ app.post '/course', (req, res) ->
       console.log "created"
     else
       console.log err
-  res.send course + "\n\n"
+  res.send course
   
 app.put '/course/:id', (req, res) ->
   CourseModel.findById req.params.id, (err, course) ->
@@ -61,7 +67,7 @@ app.put '/course/:id', (req, res) ->
       else
         console.log "error"
         console.log err
-      res.send course + "\n\n"
+      res.send course
     
 app.del '/course/:id', (req, res) ->
   CourseModel.findById req.params.id, (err, course) ->
