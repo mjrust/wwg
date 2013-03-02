@@ -1,4 +1,5 @@
-WHEN AND WHERE GOLF API
+
+WWG API, a node.js, backbone.js, and twitter-bootstrap playground
 
 # Get all courses:
 curl -i -X GET http://localhost:3001/courses
@@ -14,3 +15,7 @@ curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "Newest Course"
 
 # Modify wine with _id value of 512a7c9d1aac518643000001:
 curl -i -X PUT -H 'Content-Type: application/json' -d '{"name": "Edit Course", "city": "Carmel"}' http://localhost:3001/course/512a7c9d1aac518643000001
+
+
+
+
