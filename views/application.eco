@@ -28,70 +28,7 @@
   <body>
 
     <div class="container">
-
-      <div class="masthead">
-        <h3 class="muted"><%= @title %></h3>
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="container">
-              <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </a>
-
-              <!-- Everything you want hidden at 940px or less, place within here -->
-              <div class="nav-collapse collapse">
-                <!-- .nav, .navbar-search, .navbar-form, etc -->
-                <ul class="nav">
-                  <li class="active"><a href="#">Home</a></li>
-                  <li><a href="#">Courses</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Contact</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-
-      <!-- Jumbotron -->
-      <div class="jumbotron">
-        <h1>Find the best rate!</h1>
-        <p class="lead">At When And Where Golf, we want to help you find which course has the best rates. Would you rather play a twilight rate and save 20%? What if the course across town saves you 50% if you wait till after noon? We hate booking a tee time, only to find out that we could have saved money by waiting a few minutes or traveling across town a bit instead. We are tired of searching website after website to find out who charges what when. That's why we are here to help! </p>
-        <a class="btn btn-large btn-success" href="#">Just tell me when and where?</a>
-      </div>
-
-      <hr>
-
-      <!-- Example row of columns -->
-      <div class="row-fluid">
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div>
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-       </div>
-        <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div>
-      </div>
-
-      <hr>
-
-      <div class="footer">
-        <p>&copy; whenandwheregolf.com 2013</p>
-      </div>
-
+      <%- @body %>
     </div> <!-- /container -->
 
     <!-- Le javascript

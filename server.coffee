@@ -21,14 +21,28 @@ app.configure () ->
 Schema = mongoose.Schema
 
 Course = new Schema
-  name: { type: String, required: true }
-  city: { type: String, required: true }
-  modified: { type: Date, default: Date.now }
+  name: type: String, required: true
+  city: type: String, required: true
+  state: type: String, required: true
+  metro: String
+  region: String
+  country: String
+  price: 
+    rack: Number
+    twilight: Number
+    fall: Number
+    winter: Number
+    spring: Number
+    summer: Number
+    spec_1: Number
+    spec_2: Number
+    spec_3: Number
+  modified: type: Date, default: Date.now
 
 CourseModel = mongoose.model('Course', Course)
 
 app.get '/', (req, res) ->
-  res.render 'index', title: 'When and Where Golf', name: 'Matt Rust', layout: 'application'
+  res.render 'index', title: 'When and Where Golf', name: 'Matt Rust', layout: 'application', nav: 'nav'
   
 app.get '/courses', (req, res) ->
   CourseModel.find (err, courses) ->
