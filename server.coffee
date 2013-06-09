@@ -4,6 +4,7 @@ express  = require "express"
 mongoose = require "mongoose"
 cons     = require "consolidate"
 partials = require "express-partials"
+port     = 3700
 
 # Database
 db = mongoose.connect('mongodb://localhost/wwg')
@@ -17,7 +18,7 @@ app.configure () ->
   app.use express.static(__dirname + '/public')
   app.set 'views', __dirname + '/views'
   app.use express.bodyParser()
-  
+
 Schema = mongoose.Schema
 
 Course = new Schema
@@ -27,7 +28,7 @@ Course = new Schema
   metro: String
   region: String
   country: String
-  price: 
+  price:
     rack: Number
     twilight: Number
     fall: Number
@@ -43,21 +44,21 @@ CourseModel = mongoose.model('Course', Course)
 
 app.get '/', (req, res) ->
   res.render 'index', title: 'When and Where Golf', name: 'Matt Rust', layout: 'application', nav: 'nav'
-  
+
 app.get '/courses', (req, res) ->
   CourseModel.find (err, courses) ->
     if !err
       res.send courses
     else
       console.log err
-      
+
 app.get '/course/:id', (req, res) ->
   CourseModel.findById req.params.id, (err, course) ->
     if !err
       res.send course
     else
       console.log err
-      
+
 app.post '/course', (req, res) ->
   console.log "POST: "
   console.log req.body
@@ -70,7 +71,7 @@ app.post '/course', (req, res) ->
     else
       console.log err
   res.send course
-  
+
 app.put '/course/:id', (req, res) ->
   CourseModel.findById req.params.id, (err, course) ->
     course.name = req.body.name
@@ -83,7 +84,7 @@ app.put '/course/:id', (req, res) ->
         console.log "error"
         console.log err
       res.send course
-    
+
 app.del '/course/:id', (req, res) ->
   CourseModel.findById req.params.id, (err, course) ->
     course.remove (err) ->
@@ -94,6 +95,11 @@ app.del '/course/:id', (req, res) ->
         console.log err
 
 
+io = require('socket.io').listen(app.listen(port))
 
-app.listen 3001
-console.log 'Listening on port 3001'
+io.sockets.on 'connection', (socket) ->
+  socket.emit 'message', message: 'welcome to the chat'
+  socket.on 'send', (data) ->
+    io.sockets.emit 'message', data
+
+console.log "Listening on port " + port
