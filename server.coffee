@@ -15,6 +15,7 @@ app.configure () ->
   app.engine 'eco', cons.eco
   app.set 'view engine', 'eco'
   app.use partials()
+  app.use require('connect-assets')()
   app.use express.static(__dirname + '/public')
   app.set 'views', __dirname + '/views'
   app.use express.bodyParser()
