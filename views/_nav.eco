@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      
+
       <!-- Everything you want hidden at 940px or less, place within here -->
       <div class="nav-collapse collapse">
         <!-- .nav, .navbar-search, .navbar-form, etc -->
@@ -16,7 +16,7 @@
           <li><a href="courses">Courses</a></li>
           <li><a href="#">About</a></li>
           <li><a href="#">Contact</a></li>
-          <li><a href="#">Admin</a></li>
+          <li><a href="admin">Admin</a></li>
         </ul>
       </div>
     </div>

@@ -1,13 +1,11 @@
 require('coffee-script')
 
 express  = require "express"
-mongoose = require "mongoose"
 cons     = require "consolidate"
 partials = require "express-partials"
 port     = 3700
 
-# Database
-db = mongoose.connect('mongodb://localhost/wwg')
+# initialize express
 app = express()
 
 app.configure () ->
@@ -20,28 +18,8 @@ app.configure () ->
   app.set 'views', __dirname + '/views'
   app.use express.bodyParser()
 
-Schema = mongoose.Schema
 
-Course = new Schema
-  name: type: String, required: true
-  city: type: String, required: true
-  state: type: String, required: true
-  metro: String
-  region: String
-  country: String
-  price:
-    rack: Number
-    twilight: Number
-    fall: Number
-    winter: Number
-    spring: Number
-    summer: Number
-    spec_1: Number
-    spec_2: Number
-    spec_3: Number
-  modified: type: Date, default: Date.now
-
-CourseModel = mongoose.model('Course', Course)
+CourseModel = require("./models.coffee").CourseModel
 
 app.get '/', (req, res) ->
   res.render 'index', title: 'When and Where Golf', name: 'Matt Rust', layout: 'application', nav: 'nav'
@@ -95,6 +73,12 @@ app.del '/course/:id', (req, res) ->
       else
         console.log err
 
+app.get '/admin', (req, res) ->
+  CourseModel.find (err, courses) ->
+    if !err
+      res.render 'admin', title: 'When and Where Golf', name: 'Matt Rust', layout: 'application', nav: 'nav', courses: courses
+    else
+      console.log err
 
 io = require('socket.io').listen(app.listen(port))
 
