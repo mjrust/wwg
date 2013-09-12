@@ -18,67 +18,18 @@ app.configure () ->
   app.set 'views', __dirname + '/views'
   app.use express.bodyParser()
 
-
-CourseModel = require("./models.coffee").CourseModel
-
+# Home
 app.get '/', (req, res) ->
   res.render 'index', title: 'When and Where Golf', name: 'Matt Rust', layout: 'application', nav: 'nav'
 
-app.get '/courses', (req, res) ->
-  CourseModel.find (err, courses) ->
-    if !err
-      res.send courses
-    else
-      console.log err
-
-app.get '/course/:id', (req, res) ->
-  CourseModel.findById req.params.id, (err, course) ->
-    if !err
-      res.send course
-    else
-      console.log err
-
-app.post '/course', (req, res) ->
-  console.log "POST: "
-  console.log req.body
-  course = new CourseModel
-    name: req.body.name
-    city: req.body.city
-  course.save (err) ->
-    if !err
-      console.log "created"
-    else
-      console.log err
-  res.send course
-
-app.put '/course/:id', (req, res) ->
-  CourseModel.findById req.params.id, (err, course) ->
-    course.name = req.body.name
-    course.city = req.body.city
-    course.save (err) ->
-      if !err
-        console.log "updated"
-        res.send "Course with id: #{req.params.id} was updated\n\n"
-      else
-        console.log "error"
-        console.log err
-      res.send course
-
-app.del '/course/:id', (req, res) ->
-  CourseModel.findById req.params.id, (err, course) ->
-    course.remove (err) ->
-      if !err
-        console.log "removed"
-        res.send "Course with id: #{req.params.id} was deleted\n\n"
-      else
-        console.log err
-
-app.get '/admin', (req, res) ->
-  CourseModel.find (err, courses) ->
-    if !err
-      res.render 'admin', title: 'When and Where Golf', name: 'Matt Rust', layout: 'application', nav: 'nav', courses: courses
-    else
-      console.log err
+# Course routes
+course = require("./routes/course.coffee")
+app.get '/courses', course.list
+app.get '/course/:id', course.show
+app.post '/course', course.create
+app.put '/course/:id', course.update
+app.del '/course/:id', course.delete
+app.get '/admin', course.admin
 
 io = require('socket.io').listen(app.listen(port))
 
